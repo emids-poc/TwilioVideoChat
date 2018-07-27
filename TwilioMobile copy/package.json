@@ -1,0 +1,25 @@
+{
+  "name": "TwilioMobile",
+  "version": "0.0.1",
+  "private": true,
+  "scripts": {
+    "start": "react-native start --port 8082 --reset-cache",
+    "test": "jest",
+    "android": "react-native run-android --port 8082",
+    "ios": "react-native run-ios"
+  },
+  "dependencies": {
+    "react": "^16.3.1",
+    "react-native": "^0.55.4",
+    "react-native-twilio-video-webrtc": "git+https://github.com/blackuy/react-native-twilio-video-webrtc.git"
+  },
+  "devDependencies": {
+    "babel-jest": "23.4.0",
+    "babel-preset-react-native": "^4.0.0",
+    "jest": "23.4.1",
+    "react-test-renderer": "16.4.1"
+  },
+  "jest": {
+    "preset": "react-native"
+  }
+}
