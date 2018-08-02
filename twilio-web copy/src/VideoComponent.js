@@ -128,12 +128,23 @@ attachTracks(tracks, container) {
   }
 
   detachTracks = (tracks) => {
-        tracks.forEach(track => {
-          track.detach().forEach(detachedElement => {
-            detachedElement.remove();
-          });
-        });
-      }
+    let isSafari = /Safari/.test(navigator.userAgent) && /Apple Computer/.test(navigator.vendor);
+    tracks.forEach(track => {
+      if (isSafari) {
+        // Avoid detaching the track and only remove the DOM element for Safari.
+        // This avoids the issue that happens because of https://github.com/twilio/twilio-video.js/issues/294
+        // We are still uncertain about what side effects this problem ultimately has if particants
+        // connect and reconnect multiple times.
+        track._attachments.forEach(function(element) {
+          element.remove();
+        });
+      } else {
+        track.detach().forEach(detachedElement => {
+          detachedElement.remove();
+        });
+      }
+    });
+  }
     
     detachParticipantTracks = (participant) => {
       var tracks = Array.from(participant.tracks.values());
