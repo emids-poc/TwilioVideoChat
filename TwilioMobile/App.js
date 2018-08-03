@@ -37,8 +37,7 @@ export default class App extends Component {
     participants: new Map(),
     videoTracks: new Map(),
     roomName: '',
-    token: '',
-    appState: AppState.currentState
+    token: ''
   }
 
   requestCameraPermission =
@@ -62,7 +61,7 @@ export default class App extends Component {
         }
 
       } catch (err) {
-        console.warn(err)
+        alert(err)
       }
     }
 
@@ -71,85 +70,75 @@ export default class App extends Component {
         fetch('http://52.172.45.185:9000/api/values/' + this.state.userName )
         .then((response) => 
           response.text().then((res) => {
-           // alert("token"+res);
+            alert("token"+res);
             this.setState({token: res});
           }))
       } catch (err) {
-        console.warn(err)
+        alert("Get access token Error: " + err)
       }
     }
 
     async componentDidMount() {
       if (Platform.OS === 'android') {
         this.requestCameraPermission().then(() => {
-          //alert("success");
+          alert("requestCameraPermission success");
         })
-          .catch(() => {
-            //alert("error");
-          })
+        .catch(() => {
+          alert("requestCameraPermission error");
+        })
       }
-      AppState.addEventListener('change', this._handleAppStateChange);
-    }
-  
-    componentWillUnmount() {
-      AppState.removeEventListener('change', this._handleAppStateChange);
-    }
-  
-    _handleAppStateChange = (nextAppState) => {
-      if (this.state.appState.match(/inactive|background/) && nextAppState === 'active') {
-        console.log('App has come to the foreground!')
-      }
-      this.setState({appState: nextAppState});
     }
 
     _onGenerateTokenPress = () => {
       this.getAccessToken().then(() => {
-        //  alert('state token:'+this.state.token);
-        //  alert("Token Generated"); 
-       })
-         .catch(() => {
-           //alert("error");
-         }) 
-       }
+          alert("Token Generated"); 
+        })
+        .catch(() => {
+            alert("Token error");
+        }) 
+      }
 
-    _onRoomDidConnect = () => {
+  _onRoomDidConnect = () => {
     this.setState({status: 'connected'})
-    //alert("Room Connected");
+    alert("Room Connected");
   }
 
   _onConnectButtonPress = () => {
     this.refs.twilioVideo.connect({ roomName: this.state.roomName, accessToken: this.state.token })
-    //alert("Room Connecting");
+    alert("Room Connecting");
     this.setState({status: 'connecting'})
   }
 
   _onEndButtonPress = () => {
-    this.refs.twilioVideo.disconnect()
+    this.refs.twilioVideo.disconnect();
+    alert("End Button Press");
   }
 
   _onMuteButtonPress = () => {
     this.refs.twilioVideo.setLocalAudioEnabled(!this.state.isAudioEnabled)
       .then(isEnabled => this.setState({isAudioEnabled: isEnabled}))
+    alert("Mute Button Press");
   }
 
   _onFlipButtonPress = () => {
-    this.refs.twilioVideo.flipCamera()
+    this.refs.twilioVideo.flipCamera();
+    alert("Flip Button Press");
   }
 
   _onRoomDidDisconnect = ({roomName, error}) => {
-    console.log("ERROR: ", error)
+    alert("RoomDidDisconnect ERROR: ", error)
 
     this.setState({status: 'disconnected'})
   }
 
   _onRoomDidFailToConnect = (error) => {
-    console.log("ERROR: ", error)
+    alert("RoomDidFailToConnect ERROR: ", error)
 
     this.setState({status: 'disconnected'})
   }
 
   _onParticipantAddedVideoTrack = ({participant, track}) => {
-    console.log("onParticipantAddedVideoTrack: ", participant, track);
+    alert("onParticipantAddedVideoTrack: ", participant, track);
 
     const syncVideoTracks = this.state.videoTracks;
     for (const [key, value] of syncVideoTracks) {
@@ -166,7 +155,7 @@ export default class App extends Component {
   }
 
   _onParticipantRemovedVideoTrack = ({participant, track}) => {
-    console.log("onParticipantRemovedVideoTrack: ", participant, track)
+    alert("onParticipantRemovedVideoTrack: ", participant, track)
 
     const syncVideoTracks = this.state.videoTracks;
     syncVideoTracks.delete(track.trackSid);
@@ -177,7 +166,6 @@ export default class App extends Component {
   render() {
     return (
       <View style={styles.container}>
-        <Text>Current state is: {this.state.appState}</Text>
         {
           this.state.status === 'disconnected' &&
           <View>
@@ -233,6 +221,7 @@ export default class App extends Component {
                           participantSid: track.participantSid,
                           videoTrackSid: trackId
                         }}
+                        trackSid={trackId}
                       />
                     )
                   })
@@ -271,6 +260,22 @@ export default class App extends Component {
           onRoomDidFailToConnect= { this._onRoomDidFailToConnect }
           onParticipantAddedVideoTrack={ this._onParticipantAddedVideoTrack }
           onParticipantRemovedVideoTrack= { this._onParticipantRemovedVideoTrack }
+          onCameraSwitched = {() => {alert("Camera Switched")} }
+          onVideoChanged = {() => {alert("Video Changed")} }
+          onAudioChanged = {() => {alert("Audio Changed")} }
+          onRoomParticipantDidConnect = {() => {alert("onRoomParticipantDidConnect")} }
+          onRoomParticipantDidDisconnect = {() => {alert("onRoomParticipantDidDisconnect")} }
+          onParticipantEnabledVideoTrack = {() => {alert("onParticipantEnabledVideoTrack")} }
+          onParticipantDisabledVideoTrack = {() => {alert("onParticipantDisabledVideoTrack")} }
+          onParticipantEnabledAudioTrack = {() => {alert("onParticipantEnabledAudioTrack")} }
+          onParticipantDisabledAudioTrack = {() => {alert("onParticipantDisabledAudioTrack")} }
+          onStatsReceived = {() => {alert("onStatsReceived")} }
+          screenShare = {true}
+          onParticipantAddedAudioTrack = {() => {alert("onParticipantAddedAudioTrack")} }
+          onParticipantRemovedAudioTrack = {() => {alert("onParticipantRemovedAudioTrack")} }
+          onCameraDidStart = {() => {alert("onCameraDidStart")} }
+          onCameraWasInterrupted = {() => {alert("onCameraWasInterrupted")} }
+          onCameraDidStopRunning = {() => {alert("onCameraDidStopRunning")} }
         />
       </View>
     );
