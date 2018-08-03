@@ -301,7 +301,7 @@ export default class App extends Component {
           onParticipantEnabledAudioTrack = {() => {alert("onParticipantEnabledAudioTrack")} }
           onParticipantDisabledAudioTrack = {() => {alert("onParticipantDisabledAudioTrack")} }
           onStatsReceived = {(stats) => {
-            alert("onStatsReceived: " + JSON.stringify(stats))
+            console.log("onStatsReceived: " + JSON.stringify(stats));
           } }
           screenShare = {true}
           onParticipantAddedAudioTrack = {() => {alert("onParticipantAddedAudioTrack")} }
