@@ -33,6 +33,7 @@ export default class App extends Component {
   state = {
     isAudioEnabled: true,
     isVideoEnabled: true,
+    isLocalVideoEnabled: true,
     status: 'disconnected',
     participants: new Map(),
     videoTracks: new Map(),
@@ -163,6 +164,21 @@ export default class App extends Component {
     this.setState({videoTracks: syncVideoTracks})
   }
 
+  _onStatsButtonPress = () => {
+    this.refs.twilioVideo.getStats();
+    alert("onStatsButtonPress");
+  }
+
+  _onsetLocalVideoEnabled = () => {
+    this.refs.twilioVideo.setLocalVideoEnabled(!this.state.isLocalVideoEnabled)
+      .then(isEnabled => this.setState({isLocalVideoEnabled: isEnabled}))
+  }
+
+  _ondisableOpenSLES = () => {
+    this.refs.twilioVideo.disableOpenSLES();
+    alert("ondisableOpenSLES");
+  }
+
   render() {
     return (
       <View style={styles.container}>
@@ -228,6 +244,10 @@ export default class App extends Component {
                 }
               </View>
             }
+            <TwilioVideoLocalView
+              enabled={true}
+              style={styles.localVideo}
+            />
             <View
               style={styles.optionsContainer}>
               <TouchableOpacity
@@ -245,10 +265,21 @@ export default class App extends Component {
                 onPress={this._onFlipButtonPress}>
                 <Text style={{fontSize: 12}}>Flip</Text>
               </TouchableOpacity>
-              <TwilioVideoLocalView
-                enabled={true}
-                style={styles.localVideo}
-              />
+              <TouchableOpacity
+                style={styles.optionButton}
+                onPress={this._onStatsButtonPress}>
+                <Text style={{fontSize: 12}}>Stats</Text>
+              </TouchableOpacity>
+              <TouchableOpacity
+                style={styles.optionButton}
+                onPress={this._onsetLocalVideoEnabled}>
+                <Text style={{fontSize: 12}}>{ this.state.isLocalVideoEnabled ? "Local Video Disable" : "Local Video Enable" }</Text>
+              </TouchableOpacity>
+              <TouchableOpacity
+                style={styles.optionButton}
+                onPress={this._ondisableOpenSLES}>
+                <Text style={{fontSize: 12}}>disableOpenSLES</Text>
+              </TouchableOpacity>
             </View>
           </View>
         }
@@ -269,7 +300,9 @@ export default class App extends Component {
           onParticipantDisabledVideoTrack = {() => {alert("onParticipantDisabledVideoTrack")} }
           onParticipantEnabledAudioTrack = {() => {alert("onParticipantEnabledAudioTrack")} }
           onParticipantDisabledAudioTrack = {() => {alert("onParticipantDisabledAudioTrack")} }
-          onStatsReceived = {() => {alert("onStatsReceived")} }
+          onStatsReceived = {(stats) => {
+            alert("onStatsReceived: " + JSON.stringify(stats))
+          } }
           screenShare = {true}
           onParticipantAddedAudioTrack = {() => {alert("onParticipantAddedAudioTrack")} }
           onParticipantRemovedAudioTrack = {() => {alert("onParticipantRemovedAudioTrack")} }
