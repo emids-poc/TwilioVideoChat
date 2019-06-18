@@ -1,0 +1,51 @@
+PODS:
+  - React (0.55.4):
+    - React/Core (= 0.55.4)
+  - react-native-twilio-video-webrtc (1.0.2):
+    - React
+    - TwilioVideo (~> 2.2.0)
+  - React/Core (0.55.4):
+    - yoga (= 0.55.4.React)
+  - React/DevSupport (0.55.4):
+    - React/Core
+    - React/RCTWebSocket
+  - React/fishhook (0.55.4)
+  - React/RCTBlob (0.55.4):
+    - React/Core
+  - React/RCTNetwork (0.55.4):
+    - React/Core
+  - React/RCTWebSocket (0.55.4):
+    - React/Core
+    - React/fishhook
+    - React/RCTBlob
+  - TwilioVideo (2.2.1)
+  - yoga (0.55.4.React)
+
+DEPENDENCIES:
+  - react-native-twilio-video-webrtc (from `../node_modules/react-native-twilio-video-webrtc`)
+  - React/DevSupport (from `../node_modules/react-native`)
+  - React/RCTNetwork (from `../node_modules/react-native`)
+  - TwilioVideo
+  - yoga (from `../node_modules/react-native/ReactCommon/yoga/Yoga.podspec`)
+
+SPEC REPOS:
+  https://github.com/cocoapods/specs.git:
+    - TwilioVideo
+
+EXTERNAL SOURCES:
+  React:
+    :path: "../node_modules/react-native"
+  react-native-twilio-video-webrtc:
+    :path: "../node_modules/react-native-twilio-video-webrtc"
+  yoga:
+    :path: "../node_modules/react-native/ReactCommon/yoga/Yoga.podspec"
+
+SPEC CHECKSUMS:
+  React: aa2040dbb6f317b95314968021bd2888816e03d5
+  react-native-twilio-video-webrtc: 0f7ae3d9eb47e86c9b176f1faec23d98104a058d
+  TwilioVideo: 2c9a023fb06c7397e3d7771c944f2856b622e081
+  yoga: a23273df0088bf7f2bb7e5d7b00044ea57a2a54a
+
+PODFILE CHECKSUM: 02cf192e08e1810c6b009567cf92415c2351ea55
+
+COCOAPODS: 1.5.3

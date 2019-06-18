@@ -1,0 +1,11 @@
+# Uncomment the next line to define a global platform for your project
+source 'https://github.com/CocoaPods/Specs.git'
+
+platform :ios, '9.0'
+
+target 'TwilioMobile' do
+  pod 'yoga', path: '../node_modules/react-native/ReactCommon/yoga/Yoga.podspec'
+  pod 'React', path: '../node_modules/react-native', subspecs: ['DevSupport', 'RCTNetwork']
+  pod 'react-native-twilio-video-webrtc', path: '../node_modules/react-native-twilio-video-webrtc'
+  pod 'TwilioVideo'
+end
