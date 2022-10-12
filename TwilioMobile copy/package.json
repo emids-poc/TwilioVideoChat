@@ -10,7 +10,7 @@
   },
   "dependencies": {
     "react": "^16.3.1",
-    "react-native": "^0.55.4",
+    "react-native": "^0.70.2",
     "react-native-twilio-video-webrtc": "git+https://github.com/blackuy/react-native-twilio-video-webrtc.git"
   },
   "devDependencies": {
