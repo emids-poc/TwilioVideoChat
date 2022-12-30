@@ -10,13 +10,13 @@
   },
   "dependencies": {
     "react": "^16.3.1",
-    "react-native": "^0.55.4",
+    "react-native": "^0.70.6",
     "react-native-twilio-video-webrtc": "git+https://github.com/blackuy/react-native-twilio-video-webrtc.git"
   },
   "devDependencies": {
     "babel-jest": "23.4.0",
     "babel-preset-react-native": "^4.0.0",
-    "jest": "23.4.1",
+    "jest": "29.3.1",
     "react-test-renderer": "16.4.1"
   },
   "jest": {
